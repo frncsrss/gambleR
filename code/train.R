@@ -52,3 +52,16 @@ save(rf.model, file="models/rf.model.rda")
 library(party)
 cforest.model <- cforest(formula=factor(class) ~ ., data=trainData)
 save(cforest.model, file="models/cforest.model.rda")
+
+
+###################
+# learning from svm
+###################
+library(e1071)
+svm.model <- svm(formula=factor(class) ~ ., data=trainData)
+save(svm.model, file="models/svm.model.rda")
+# contrary to trees, you need to specify in the training phase that you need
+# the probabilities rather than just classification (takes longer)
+svm.model.prob <- svm(formula=factor(class) ~ ., data=trainData,
+                      probability=TRUE)
+save(svm.model.prob, file="models/svm.model.prob.rda")

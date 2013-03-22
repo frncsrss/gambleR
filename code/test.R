@@ -62,3 +62,21 @@ precision.recall.file(predictions=rf.pred.prob[, 3],
                       filename="predictions/rf.pred.prob.class_3.csv")
 plot(precision.recall.perf(predictions=rf.pred.prob[, 3],
                            actuals=testData$class == 3))
+
+
+#####################
+# prediction from svm
+#####################
+library(e1071)
+load("models/svm.model.rda")
+svm.pred.class <- predict(svm.model, testData, type="class")
+table(testData$class, svm.pred.class)
+fmeasure(testData$class, svm.pred.class, class=3)
+
+load("models/svm.model.prob.rda")
+svm.pred.prob <- predict(svm.model.prob, testData, probability=TRUE)
+precision.recall.file(predictions=attr(svm.pred.prob , "probabilities")[, "3"],
+                      actuals=testData$class == 3,
+                      filename="predictions/svm.pred.prob.class_3.csv")
+plot(precision.recall.perf(predictions=attr(svm.pred.prob , "probabilities")[, "3"],
+                           actuals=testData$class == 3))
