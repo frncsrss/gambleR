@@ -38,3 +38,17 @@ library(rJava)
 # serialize the Java reference before saving the R object
 .jcache(j48.model$classifier)
 save(j48.model, file="models/j48.model.rda")
+
+
+#######################
+# learning from forests
+#######################
+# random forest
+library(randomForest)
+rf.model <- randomForest(formula=factor(class) ~ ., data=trainData)
+save(rf.model, file="models/rf.model.rda")
+
+# conditional inference forest
+library(party)
+cforest.model <- cforest(formula=factor(class) ~ ., data=trainData)
+save(cforest.model, file="models/cforest.model.rda")

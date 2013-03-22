@@ -44,3 +44,21 @@ load("models/j48.model.rda")
 j48.pred <- predict(j48.model, testData, type="class")
 table(testData$class, j48.pred)
 fmeasure(testData$class, j48.pred, class=3)
+
+
+#########################
+# prediction from forests
+#########################
+# random forest
+library(randomForest)
+load("models/rf.model.rda")
+rf.pred.class <- predict(rf.model, testData, type="class")
+table(testData$class, rf.pred.class)
+fmeasure(testData$class, rf.pred.class, class=3)
+# predict probabilities for each class
+rf.pred.prob <- predict(rf.model, testData, type="prob")
+precision.recall.file(predictions=rf.pred.prob[, 3],
+                      actuals=testData$class == 3,
+                      filename="predictions/rf.pred.prob.class_3.csv")
+plot(precision.recall.perf(predictions=rf.pred.prob[, 3],
+                           actuals=testData$class == 3))
