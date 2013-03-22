@@ -2,3 +2,6 @@
 .Rhistory
 .RData
 gambleR.Rproj
+data/*
+models/*
+predictions/*
