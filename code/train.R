@@ -65,3 +65,11 @@ save(svm.model, file="models/svm.model.rda")
 svm.model.prob <- svm(formula=factor(class) ~ ., data=trainData,
                       probability=TRUE)
 save(svm.model.prob, file="models/svm.model.prob.rda")
+
+
+###########################
+# learning from Naive Bayes
+###########################
+library(e1071)
+naiveBayes.model <- naiveBayes(formula=factor(class) ~ ., data=trainData)
+save(naiveBayes.model, file="models/naiveBayes.model.rda")

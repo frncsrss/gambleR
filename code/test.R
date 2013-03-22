@@ -80,3 +80,13 @@ precision.recall.file(predictions=attr(svm.pred.prob , "probabilities")[, "3"],
                       filename="predictions/svm.pred.prob.class_3.csv")
 plot(precision.recall.perf(predictions=attr(svm.pred.prob , "probabilities")[, "3"],
                            actuals=testData$class == 3))
+
+
+#############################
+# prediction from Naive Bayes
+#############################
+library(e1071)
+load("models/naiveBayes.model.rda")
+naiveBayes.pred <- predict(naiveBayes.model, testData, type="class")
+table(testData$class, naiveBayes.pred)
+fmeasure(testData$class, naiveBayes.pred, class=3)
